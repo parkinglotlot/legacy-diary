@@ -140,5 +140,6 @@ $RECYCLE.BIN/
 
 # config
 config.properties
+config-google.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,java,eclipse,maven

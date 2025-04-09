@@ -163,12 +163,49 @@ function showAuthenticateDiv() {
 	let authDiv = `
 	    <div class = "authenticationDiv mt-2">
 		<input type="text" class="form-control" id="memberAuthCode" placeholder="인증번호를 입력하세요...." />
-		<button type="button" class="btn btn-info" onclick = "checkAuthCode();">인증하기</button>
+		<button type="button" class="btn btn-info" onclick = "checkAuthCode();">인증하기</button> <span id ="timer"></span>
+		<input  id = "timeBtn" type="button"
+			style="border: none; background-color: white; color: red"
+		          value="초기화" onclick = "backTime();">
 		</div>
 	`;
 	
+	intervalTimer();
 	$(authDiv).insertAfter("#email");
 	
+	
+
+}
+
+//타이머 구현
+let lastTime = "";
+let start = 0;
+function intervalTimer() {
+    start = 1000 * 60 * 3; //3분
+    let timer = setInterval(function () {
+      //3분에서 1초씩 차감
+      start -= 1000;
+      // let now = Date.now(); //현재까지의 밀리초(1970년부터)
+      let minutes = String(Math.floor((start / (1000 * 60)) % 60)).padStart(
+        2,
+        "0"
+      );
+      let seconds = String((start / 1000) % 60).padStart(2, "0");
+      //console.log(minutes + ":" + seconds);
+      lastTime = minutes + ":" + seconds;
+      $("#timer").html(lastTime);
+      if (start <= 0) {
+        clearInterval(timer);
+       // console.log("끝.");
+       $(".authenticationDiv").remove();
+       $("#email").val("");
+        return;
+      }
+    }, 1000);
+  }
+
+function backTime(){
+	start = 1000 * 60 * 3;
 }
 
 

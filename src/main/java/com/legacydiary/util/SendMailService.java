@@ -34,13 +34,23 @@ public class SendMailService {
       
       Properties props = new Properties();
       
-      // -- 
-      props.put("mail.smtp.host", "smtp.naver.com");
-      props.put("mail.smtp.port", "587");
-      props.put("mail.smtp.starttls.enable", "true");
-      props.put("mail.smtp.ssl.trust", "smtp.naver.com");
+      // 네이버
+//      props.put("mail.smtp.host", "smtp.naver.com");
+//      props.put("mail.smtp.port", "587");
+//      props.put("mail.smtp.starttls.enable", "true");
+//      props.put("mail.smtp.ssl.trust", "smtp.naver.com");
+//      props.put("mail.smtp.ssl.protocols", "TLSv1.2");
+//      props.put("mail.smtp.auth", "true");
+      
+      //구글
+      props.put("mail.smtp.host","smtp.gmail.com");
+      props.put("spring.mail.port","587");
+      props.put("mail.smtp.starttls.enable","true");
+      props.put("mail.smtp.ssl.trust","smtp.gmail.com");
       props.put("mail.smtp.ssl.protocols", "TLSv1.2");
       props.put("mail.smtp.auth", "true");
+      
+      
    
       getAccount();
       
@@ -73,7 +83,8 @@ public class SendMailService {
 
    private void getAccount() throws FileNotFoundException, IOException {
       Properties account = new Properties();
-      account.load(new FileReader("C:\\lecture\\spring\\legacy-diary\\src\\main\\webapp\\WEB-INF\\config.properties"));
+//      account.load(new FileReader("C:\\lecture\\spring\\legacy-diary\\src\\main\\webapp\\WEB-INF\\config.properties"));
+      account.load(new FileReader("C:\\lecture\\spring\\legacy-diary\\src\\main\\webapp\\WEB-INF\\config-google.properties"));
       this.username = (String) account.get("username");
       this.password = (String) account.get("password");
       
