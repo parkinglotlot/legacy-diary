@@ -9,4 +9,4 @@ use park;
 --   UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE);
 
 -- 아이디 중복검사
-select count(*) from member where memberId = 'tosimi';
+select count(*) from member where memberId = 'tosimi';friends

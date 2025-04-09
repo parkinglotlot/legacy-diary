@@ -24,7 +24,7 @@ public class MemberController {
 	private final MemberService mService; //서비스 객체 주입
 
 	@GetMapping("/signup")
-	public void registerForm() {
+	public void registerForm() { // 가입 폼 페이지 보여주기 위한 메서드
 		
 	}
 	
