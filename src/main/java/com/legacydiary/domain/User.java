@@ -13,6 +13,9 @@ public class User {
 		 this.name = builder.name;
 	 }
 	 
+	 public static Builder builder() {
+		 return new Builder();
+	 } // 유저 클래스에 static한 메서드 추가
 	 
 	 public String getId() {
 		return id;
