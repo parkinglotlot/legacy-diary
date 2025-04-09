@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 import com.legacydiary.domain.MyResponse;
 import com.legacydiary.service.member.MemberService;
+import com.legacydiary.domain.User;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +25,14 @@ public class MemberController {
 
 	@GetMapping("/signup")
 	public void registerForm() { // 가입 폼 페이지 보여주기 위한 메서드
+		
+//		User user = new User.Builder()
+//				.id("user1")
+//				.name("홍길동")
+//				.pwd("1234")
+//				.build();
+//		
+//		System.out.println(user);
 		
 	}
 	
