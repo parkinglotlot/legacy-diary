@@ -82,7 +82,7 @@ public class MemberController {
 	@PostMapping("/callSendMail")
 	public ResponseEntity<String> sendMailAuthCode(@RequestParam String tmpMemberEmail, HttpSession session) {
 		
-		log.info("tmpMemberEmail:{}" + tmpMemberEmail); 
+		log.info("tmpMemberEmail:{}" , tmpMemberEmail); 
 		
 		String result = "";
 		
