@@ -108,7 +108,7 @@ $(function(){
 
 function checkEmail(){
 	// alert("checkEmail");
-	// 1) 정규 표현식을 이용하여 이메일 주소 형식인지 아닌지 판단 + 중복체크
+	// 1) 정규 표현식을 이용하여 이메일 주소 형식인지 아닌지 판단 + 중복체크(유니크 제약조건)
 	// 2) 이메일 주소 형식이면... 인증번호를 이메일로 보내고
 	// 인증번호를 입력받을 태그를 생성해서 다시 입력 받아서 보낸 인증번호와 유저가 입력한 인증번호가 일치하는지 검증
 	
@@ -144,9 +144,13 @@ function callSendMail(){
            // 통신이 성공하면 수행할 함수
            console.log(data);
            if(data == "success"){
+        	   alert("이메일로 인증번호를 발송했습니다. 인증코드를 입력해주세요.");
+        	   
         	   if($(".authenticationDiv").length == 0){    		   
         		   showAuthenticateDiv(); //인증번호를 입력받을 태그 요소를 출력
         	   }
+        	   startTimer();
+        	   
            }
          
          },
@@ -163,14 +167,14 @@ function showAuthenticateDiv() {
 	let authDiv = `
 	    <div class = "authenticationDiv mt-2">
 		<input type="text" class="form-control" id="memberAuthCode" placeholder="인증번호를 입력하세요...." />
-		<button type="button" class="btn btn-info" onclick = "checkAuthCode();">인증하기</button> <span id ="timer"></span>
+		<button type="button" id = "authBtn" class="btn btn-info" onclick = "checkAuthCode();">인증하기</button> <span id ="timer"></span>
 		<input  id = "timeBtn" type="button"
 			style="border: none; background-color: white; color: red"
 		          value="초기화" onclick = "backTime();">
 		</div>
 	`;
 	
-	intervalTimer();
+	
 	$(authDiv).insertAfter("#email");
 	
 	
@@ -180,7 +184,7 @@ function showAuthenticateDiv() {
 //타이머 구현
 let lastTime = "";
 let start = 0;
-function intervalTimer() {
+function startTimer() {
     start = 1000 * 60 * 3; //3분
     let timer = setInterval(function () {
       //3분에서 1초씩 차감
@@ -197,12 +201,42 @@ function intervalTimer() {
       if (start <= 0) {
         clearInterval(timer);
        // console.log("끝.");
-       $(".authenticationDiv").remove();
-       $("#email").val("");
-        return;
+       expiredTimer();
       }
     }, 1000);
   }
+  
+  
+  function expiredTimer(){
+	  //인증 버튼 비활성화
+	  $("#authBtn").prop("disabled",true);
+	  
+	  //타이머 종료시 백엔드에도 인증시간이 만료되었음을 알려야 한다.
+	  if($("#emailValid").val()!="checked" ){
+		  
+		  $.ajax({
+		         url: '/member/clearAuthCode', // 데이터가 송수신될 서버의 주소
+		         type: "POST", // 통신 방식 (GET, POST, PUT, DELETE)
+		         dataType: "text", // 수신받을 데이터 타입 (MIME TYPE)
+		         // async: false, // 동기 통신 방식
+		         success: function (data) {
+		           // 통신이 성공하면 수행할 함수
+		           console.log(data);
+		           alert("인증시간이 만료되었습니다. 이메일 주소를 다시 입력하고 재인증해 주세요.")
+		           $(".authenticationDiv").remove();
+		           $("#email").val("");
+		         },
+		         error: function () {},
+		         complete: function () {
+		         },
+		       }); 
+		  
+	  }
+	  
+	  
+  }
+  
+  
 
 function backTime(){
 	start = 1000 * 60 * 3;
