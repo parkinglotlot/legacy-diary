@@ -24,3 +24,10 @@ insert into member(memberId,memberPwd,email,memberName) values(?,?,?,?);
 --   `writer` VARCHAR(8) NOT NULL,
 --   `finished` TINYINT NULL DEFAULT '0',
 --   PRIMARY KEY (`dno`));
+
+-- insert into diary (title,dueDate,writer) values (?,?,?)
+select * from diary;
+
+select * from diary order by dno desc;
+
+update diary set finished = ? where dno = ?;

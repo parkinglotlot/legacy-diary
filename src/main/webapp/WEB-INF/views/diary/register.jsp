@@ -135,7 +135,7 @@ pageEncoding="UTF-8"%>
               type="date"
               class="form-control"
               id="dueDate"
-              name="dueDate"
+              name="dueDateStr"
             />
           </div>
           <div class="mb-3 mt-3">
