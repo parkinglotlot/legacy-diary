@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.legacydiary.domain.DiaryDTO;
 import com.legacydiary.domain.DiaryVO;
@@ -34,10 +35,11 @@ public class DiaryController {
 	}
 	
 	@PostMapping("/register")
-	public void register(DiaryDTO diaryDTO) {
+	public String register(DiaryDTO diaryDTO, RedirectAttributes rttr) {
 		
 		log.info("diaryDTO : {}", diaryDTO);
 		
+		String resultPage = "redirect:/diary/list";
 		// 서비스에 넘길 VO 객체 생성
 		DiaryVO diaryVO = DiaryVO.builder()
 				.title(diaryDTO.getTitle())
@@ -49,7 +51,10 @@ public class DiaryController {
 		
 		if(diaryService.register(diaryVO) == 1) {
 			log.info("등록 성공.");
+		    rttr.addFlashAttribute("status", "success");
 		}
+		
+		return resultPage;
 	}
 	
 	@GetMapping("/list")

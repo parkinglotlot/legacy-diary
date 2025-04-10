@@ -30,7 +30,7 @@ $(function (){
 	         success: function (data) {
 	           // 통신이 성공하면 수행할 함수
 	           console.log(data);
-	         
+	           
 	         },
 	         error: function () {},
 	         complete: function () {

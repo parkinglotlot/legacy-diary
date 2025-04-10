@@ -114,6 +114,7 @@ pageEncoding="UTF-8"%>
     <jsp:include page="../header.jsp"></jsp:include>
     <div class="container mt-5">
       <div class="row">
+      
         <h1>다이어리 등록</h1>
 
         <form action="/diary/register" method="post">

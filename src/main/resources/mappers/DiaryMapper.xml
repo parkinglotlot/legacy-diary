@@ -16,6 +16,6 @@
   </select>
   
   <update id="updateFinished">
-     update diary set finished = #{finished} where dno = #{dno};
+     update diary set finished = #{finished} where dno = #{dno}
   </update>
 </mapper>
