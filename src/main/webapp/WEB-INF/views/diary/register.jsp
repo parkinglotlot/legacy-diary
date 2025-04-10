@@ -1,0 +1,125 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>일기 등록</title>
+    <script type="text/javascript">
+      $(function(){
+
+      	$("#title").on("blur",function(){
+      		validTitle();
+      	});
+
+      	$("#dueDate").on("blur",function(){
+      		validDueDate();
+      	});
+
+      });
+
+      function validTitle(){
+      	let result = false;
+      	//필수,  ++++++ 100자 이하
+      	let title = $("#title").val();
+
+      	if(title == ''){
+      		$("#titleError").html("제목을 입력하세요.")
+      	} else {
+      		$("#titleError").html("");
+      		result = true;
+      	}
+
+      	return result;
+      }
+
+
+      function validDueDate(){
+      	// 완료일 : 오늘이나 그 이전 날짜는 입력 받지 않도록 한다.
+      	// 필수
+      	let dueDate = $("#dueDate").val();
+          console.log(dueDate == "");
+
+          let today = new Date().toISOString().split("T")[0];
+          //console.log(today.toISOString().split("T")[0]); // 오늘의 날짜만
+
+
+          if(dueDate == ""){
+        	  
+          	$("#dueDateError").html("완료일은 필수항목입니다.");
+          	
+          }  else if((new Date(dueDate) - new Date()) < 0){
+        	  
+        		$("#dueDateError").html("완료일은 오늘 이후로 선택하세요.");
+          } 
+
+          //console.log(Number(dueDate.split("-").join("")));
+
+      }
+
+
+      function isValid(){
+
+
+      	let titleValid = validTitle();
+      	let dusDateValid = validDueDate();
+
+      	return false;
+      }
+    </script>
+  </head>
+  <body>
+    <jsp:include page="../header.jsp"></jsp:include>
+    <div class="container mt-5">
+      <div class="row">
+        <h1>다이어리 등록</h1>
+
+        <form action="/diary/register" method="post">
+          <div class="mb-3 mt-3">
+            <label for="title" class="form-label">Title :</label>
+            <span id="titleError"></span>
+            <input
+              type="text"
+              class="form-control"
+              id="title"
+              placeholder="제목"
+              name="title"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="dueDate" class="form-label">due Date:</label>
+            <span id="dueDateError"></span>
+            <input
+              type="date"
+              class="form-control"
+              id="dueDate"
+              name="dueDate"
+            />
+          </div>
+          <div class="mb-3 mt-3">
+            <label for="writer" class="form-label">writer :</label>
+            <span id="writerError"></span>
+            <input
+              type="text"
+              class="form-control"
+              id="writer"
+              placeholder="작성자"
+              name="writer"
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+            onclick="return isValid();"
+          >
+            Submit
+          </button>
+          <button type="reset" class="btn btn-secondary">Reset</button>
+        </form>
+      </div>
+    </div>
+    <jsp:include page="../footer.jsp"></jsp:include>
+  </body>
+</html>

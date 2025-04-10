@@ -11,3 +11,16 @@ select * from member;
 
 -- 아이디 중복검사
 select count(*) from member where memberId = 'tosimi';
+insert into member(memberId,memberPwd,email,memberName) values(?,?,?,?);
+
+
+-- ---------------------------------------------------------------
+-- diary 테이블 생성
+
+-- CREATE TABLE `park`.`diary` (
+--   `dno` INT NOT NULL AUTO_INCREMENT,
+--   `title` VARCHAR(100) NOT NULL,
+--   `dueDate` DATE NOT NULL,
+--   `writer` VARCHAR(8) NOT NULL,
+--   `finished` TINYINT NULL DEFAULT '0',
+--   PRIMARY KEY (`dno`));
