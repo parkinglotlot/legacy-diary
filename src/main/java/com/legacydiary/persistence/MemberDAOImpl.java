@@ -34,4 +34,10 @@ public class MemberDAOImpl implements MemberDAO {
 		return ses.selectOne(ns + "loginWithLoginDTO", loginDTO);
 	}
 
+	@Override
+	public String selectEmailByMemberId(String memberId) {
+		
+		return ses.selectOne(ns + "selectEmailByMemberId", memberId);
+	}
+
 }

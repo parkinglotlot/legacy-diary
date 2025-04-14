@@ -47,4 +47,14 @@ delete from diary where writer = '유지니';
 -- 내일이 마감인 목록
 select * from diary where dueDate = date_add(curdate(), interval 1 day);
 
-update dueDate = '2025-04-15' from diary where dno = 9 and 6;
+update diary set dueDate = '2025-04-15' where dno = 9;
+update diary set dueDate = '2025-04-15' where dno = 6;
+
+-- 멤버 아이디로 이메일 조회
+-- select email frommember where memberId = ?
+
+select * from member;
+
+update member set email = 'jina_1226@naver.com' where memberId = 'jina';
+update member set email = 'ujin2597.u@gmail.com' where memberId = 'park';
+
