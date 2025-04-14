@@ -30,7 +30,7 @@ public class EmailReminderScheduler {
 	
 	
 	@Scheduled(cron = "0 51 17 * * *")
-	public void reminderSchdule() throws FileNotFoundException, MessagingException, IOException {
+	public void reminderSchedule() throws FileNotFoundException, MessagingException, IOException {
 		// 내일 마감인 글 조회
 		List<DiaryVO> list = diaryMapper.selectDiaryDueTomorrow();
 		log.info("list : {}", list);
