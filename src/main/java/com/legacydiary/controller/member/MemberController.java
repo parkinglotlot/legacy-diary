@@ -167,12 +167,23 @@ public class MemberController {
 	}
 	
 	@PostMapping("/login")
-	public void loginPOST(LoginDTO loginDTO) {
+	public String loginPOST(LoginDTO loginDTO, HttpSession session) {
 		log.info("로그인하러 가자~~~~ {}", loginDTO);
+		String resultPage = "";
 		
 		MemberDTO loginMember = mService.login(loginDTO);
 		log.info("loginMember : {}",loginMember);
 		
+		if(loginMember != null) {
+			// 로그인 성공 -> homepage로 보낸다 ("/")
+			session.setAttribute("loginMember", loginMember); // 세션에 로그인한 멤버의 정보를 저장
+			resultPage = "redirect:/";
+		}else {
+			//  로그인 실패 -> 로그인 페이지 ("/member.login")
+			resultPage = "redirect:/member/login";
+		}
+		
+		return resultPage;
 	}
 	
 }

@@ -17,4 +17,7 @@ public interface DiaryService {
 	// 글 수정 (title,dueDate)
 	void modify(DiaryVO diaryVO);
 
+	// 로그인한 유저의 글만 조회
+	List<DiaryVO> viewAll(String memberId);
+
 }

@@ -3,6 +3,8 @@ package com.legacydiary.controller.diary;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.legacydiary.domain.DiaryDTO;
 import com.legacydiary.domain.DiaryVO;
+import com.legacydiary.domain.MemberDTO;
 import com.legacydiary.service.diary.DiaryService;
 
 import lombok.RequiredArgsConstructor;
@@ -58,14 +61,35 @@ public class DiaryController {
 		return resultPage;
 	}
 	
+//	@GetMapping("/list")
+//	public String viewAll(Model model) {
+//		
+//		
+//		
+//		List<DiaryVO> list =  diaryService.viewAll();
+//		
+//		model.addAttribute("diaryList",list);
+//		
+//		return "/diary/list"; // 뷰이름 반환
+//		
+//	}
+	
 	@GetMapping("/list")
-	public String viewAll(Model model) {
+	public String viewAll(Model model, HttpSession session) {
 		
-		List<DiaryVO> list =  diaryService.viewAll();
+		MemberDTO loginMember = (MemberDTO)session.getAttribute("loginMember");
 		
-		model.addAttribute("diaryList",list);
+		if(loginMember == null) {
+			return "redirect:/member/login"; // 로그인하지 않은 경우, 로그인 페이지로 리다이렉트
+		}else {
+			// 로그인 한 경우
+			List<DiaryVO> list =  diaryService.viewAll(loginMember.getMemberId());
+			
+			model.addAttribute("diaryList",list);
+			
+			return "/diary/list"; // 뷰이름 반환
+		}	
 		
-		return "/diary/list"; // 뷰이름 반환
 	}
 	
 	
