@@ -18,4 +18,10 @@
   <update id="updateFinished">
      update diary set finished = #{finished} where dno = #{dno}
   </update>
+  
+  <update id="updateDiary">
+     update diary set title = #{title}, dueDate =  #{dueDate} where dno = #{dno}
+  </update>
+  
+
 </mapper>

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.legacydiary.domain.LoginDTO;
 import com.legacydiary.domain.MemberDTO;
 import com.legacydiary.domain.MyResponse;
 import com.legacydiary.service.member.MemberService;
@@ -156,6 +157,21 @@ public class MemberController {
 		}
 		
 		return new ResponseEntity<String>("success",HttpStatus.OK);
+		
+	}
+	
+	@GetMapping("/login")
+	public String loginForm() {
+		
+		return "/member/login";
+	}
+	
+	@PostMapping("/login")
+	public void loginPOST(LoginDTO loginDTO) {
+		log.info("로그인하러 가자~~~~ {}", loginDTO);
+		
+		MemberDTO loginMember = mService.login(loginDTO);
+		log.info("loginMember : {}",loginMember);
 		
 	}
 	

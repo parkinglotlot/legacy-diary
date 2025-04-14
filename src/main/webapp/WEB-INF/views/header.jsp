@@ -21,6 +21,9 @@
           <a class="nav-link" href="/member/signup">회원가입</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="/member/login">로그인</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="/diary/register">다이어리 등록</a>
         </li>
         <li class="nav-item">

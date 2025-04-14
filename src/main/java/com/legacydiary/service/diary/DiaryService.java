@@ -13,5 +13,8 @@ public interface DiaryService {
 	List<DiaryVO> viewAll();
 
 	void updateFinished(int dno, boolean finished);
+	
+	// 글 수정 (title,dueDate)
+	void modify(DiaryVO diaryVO);
 
 }

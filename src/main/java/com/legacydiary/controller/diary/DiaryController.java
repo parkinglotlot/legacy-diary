@@ -1,5 +1,6 @@
 package com.legacydiary.controller.diary;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -40,7 +41,7 @@ public class DiaryController {
 		log.info("diaryDTO : {}", diaryDTO);
 		
 		String resultPage = "redirect:/diary/list";
-		// 서비스에 넘길 VO 객체 생성
+		// 서비스에 넘길 VO 객체 생성 & 저장
 		DiaryVO diaryVO = DiaryVO.builder()
 				.title(diaryDTO.getTitle())
 				.dueDate(diaryDTO.getDueDate())
@@ -79,4 +80,33 @@ public class DiaryController {
 		
 		return "success";
 	}
+	
+	@PostMapping("/modify")
+	@ResponseBody
+	public String modifyDiary(@RequestParam int dno, 
+			@RequestParam String title,
+			@RequestParam String dueDateStr) {
+			
+		log.info("dno : {}",dno);
+		log.info("title : {}",title);
+		log.info("dueDateStr : {}",dueDateStr );
+		
+		
+		// 서비스에 넘길 VO 객체 생성 & 저장
+		LocalDate dueDate = LocalDate.parse(dueDateStr);
+		
+				DiaryVO diaryVO = DiaryVO.builder()
+						.dno(dno)
+						.title(title)
+						.dueDate(dueDate)
+						.build();
+		
+				diaryService.modify(diaryVO);
+		
+				return "success";
+				
+				
+	}
+	
+	
 }
