@@ -26,5 +26,9 @@
   <select id="selectAllListById" resultType="DiaryVO">
      select * from diary where writer = #{memberId} order by dno desc
   </select>
+  
+  <select id="selectDiaryDueTomorrow" resultType="DiaryVO">
+      select * from diary where dueDate = date_add(curdate(), interval 1 day);
+  </select>
 
 </mapper>

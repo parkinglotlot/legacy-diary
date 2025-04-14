@@ -33,10 +33,18 @@ select * from diary order by dno desc;
 update diary set finished = ? where dno = ?;
 
 -- 다이어리 title,dueDate 수정
-update diary set title = ?, dueDate = ? where dno = ?
+-- update diary set title = ?, dueDate = ? where dno = ?
 
 -- 로그인~
-select * from member where memberId = ? and memberPwd = ?member
+-- select * from member where memberId = ? and memberPwd = ?member
 
 -- memberId로 글 목록 조회
-selecct * from diary where writer = ? 
+-- select * from diary where writer = ?
+
+delete from diary where writer = '박씨'; 
+delete from diary where writer = '유지니';
+
+-- 내일이 마감인 목록
+select * from diary where dueDate = date_add(curdate(), interval 1 day);
+
+update dueDate = '2025-04-15' from diary where dno = 9 and 6;

@@ -20,4 +20,6 @@ public interface DiaryMapper {
 
 	List<DiaryVO> selectAllListById(String memberId);
 	
+	List<DiaryVO> selectDiaryDueTomorrow();
+	
 }
