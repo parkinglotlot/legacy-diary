@@ -23,5 +23,8 @@
      update diary set title = #{title}, dueDate =  #{dueDate} where dno = #{dno}
   </update>
   
+  <select id="selectAllListById" resultType="DiaryVO">
+     select * from diary where writer = #{memberId} order by dno desc
+  </select>
 
 </mapper>

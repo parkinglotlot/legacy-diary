@@ -140,14 +140,15 @@ pageEncoding="UTF-8"%>
             />
           </div>
           <div class="mb-3 mt-3">
-            <label for="writer" class="form-label">writer :</label>
-            <span id="writerError"></span>
+           <!--  <label for="writer" class="form-label">writer :</label>
+            <span id="writerError"></span> -->
             <input
-              type="text"
+              type="hidden"
               class="form-control"
               id="writer"
               placeholder="작성자"
               name="writer"
+              value = "${loginMember.memberId }"
             />
           </div>
 

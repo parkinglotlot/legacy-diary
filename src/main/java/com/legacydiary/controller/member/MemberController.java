@@ -186,4 +186,20 @@ public class MemberController {
 		return resultPage;
 	}
 	
+	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		//BFF679D80A5B8D06D7EB1FA73501B481
+		if(session.getAttribute("loginMember") != null) {
+			// 세션에 저장된 값들 삭제
+			session.removeAttribute("loginMember");
+			
+			//세션 무효화
+			session.invalidate();			
+		}
+	
+		return "redirect:/";
+		
+	}
+	
 }

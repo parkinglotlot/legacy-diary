@@ -29,10 +29,13 @@
           <c:otherwise>
 							<li class="nav-item"><a class="nav-link"
 								href="/member/mypage">${loginMember.memberId }님</a></li>
+								
 								<li class="nav-item"><a class="nav-link"
 								href="/member/logout">로그아웃</a></li>
+								
 							<li class="nav-item"><a class="nav-link"
 								href="/diary/register">다이어리 등록</a></li>
+								
 							<li class="nav-item"><a class="nav-link" href="/diary/list">다이어리 목록</a></li>
 						</c:otherwise>
     </c:choose>

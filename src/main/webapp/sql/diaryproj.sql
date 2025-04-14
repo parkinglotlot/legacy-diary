@@ -35,5 +35,8 @@ update diary set finished = ? where dno = ?;
 -- 다이어리 title,dueDate 수정
 update diary set title = ?, dueDate = ? where dno = ?
 
--- 로그인
+-- 로그인~
 select * from member where memberId = ? and memberPwd = ?member
+
+-- memberId로 글 목록 조회
+selecct * from diary where writer = ? 

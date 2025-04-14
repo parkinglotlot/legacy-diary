@@ -33,31 +33,50 @@ public class DiaryController {
 	
 
 	@GetMapping("/register")
-	public String registerForm() {
-		
+	public String registerForm(HttpSession session) {
+		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
+
+		if (loginMember == null) {
+			// 로그인되어 있지 않으면 로그인 페이지
+			return "redirect:/member/login";
+		}
+
 		return "/diary/register";
 	}
 	
 	@PostMapping("/register")
-	public String register(DiaryDTO diaryDTO, RedirectAttributes rttr) {
+	public String register(DiaryDTO diaryDTO, RedirectAttributes rttr,HttpSession session) {
 		
 		log.info("diaryDTO : {}", diaryDTO);
 		
 		String resultPage = "redirect:/diary/list";
-		// 서비스에 넘길 VO 객체 생성 & 저장
-		DiaryVO diaryVO = DiaryVO.builder()
-				.title(diaryDTO.getTitle())
-				.dueDate(diaryDTO.getDueDate())
-				.writer(diaryDTO.getWriter())
-				.finished(diaryDTO.isFinished())
-				.build();
 		
-		
-		if(diaryService.register(diaryVO) == 1) {
-			log.info("등록 성공.");
-		    rttr.addFlashAttribute("status", "success");
+		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
+
+		if (loginMember == null) {
+			// 로그인되어 있지 않으면 로그인 페이지
+			return "redirect:/member/login";
+		}else {			
+			// 서비스에 넘길 VO 객체 생성 & 저장
+			DiaryVO diaryVO = DiaryVO.builder()
+					.title(diaryDTO.getTitle())
+					.dueDate(diaryDTO.getDueDate())
+					.writer(diaryDTO.getWriter())
+					.finished(diaryDTO.isFinished())
+					.build();	
+			
+			try {
+				if(diaryService.register(diaryVO) == 1) {
+					log.info("등록 성공.");
+				    rttr.addFlashAttribute("status", "success");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				log.info("예외 발생!!!");
+				resultPage = "redirect:/diary/register";
+			}
+					
 		}
-		
 		return resultPage;
 	}
 	
@@ -87,8 +106,8 @@ public class DiaryController {
 			
 			model.addAttribute("diaryList",list);
 			
-			return "/diary/list"; // 뷰이름 반환
 		}	
+		return "/diary/list"; // 뷰이름 반환
 		
 	}
 	
