@@ -125,7 +125,7 @@ $(function (){
 			<h1>다이어리 목록</h1>
 			
 			<div class = "mb-3">
-			    <button class = "btn btn-primary" id = "searchBtn">✔✔검색 옵션</button>
+			    <button class = "btn btn-primary" id = "searchBtn">🔍검색 옵션</button>
 			</div>
 			
 			<div class="card"  id = "searchFormCard" style = "display:none;">
