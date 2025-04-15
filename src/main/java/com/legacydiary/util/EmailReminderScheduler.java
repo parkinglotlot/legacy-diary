@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 public class EmailReminderScheduler {
 	
 	private final DiaryMapper diaryMapper;
-	private final MemberDAO memberDao;
+	private final MemberDAO memberDAO;
 	private final SendMailService sendMailService;
 	
 	
@@ -56,7 +56,7 @@ public class EmailReminderScheduler {
 			log.info("writer : {}",memberId);
 			log.info("list : {}",entry.getKey());
 			
-			String email = memberDao.selectEmailByMemberId(memberId);
+			String email = memberDAO.selectEmailByMemberId(memberId);
 			log.info("email : {}",email);
 			
 			// 메일 본문

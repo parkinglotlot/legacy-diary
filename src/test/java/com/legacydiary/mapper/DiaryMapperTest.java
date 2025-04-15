@@ -26,7 +26,7 @@ public class DiaryMapperTest {
 	private DiaryMapper diaryMapper;
 	
 	@Autowired
-	private MemberDAO memberDao;
+	private MemberDAO memberDAO;
 	
 //	@Test
 //	public void selectNowTest() {
@@ -63,7 +63,7 @@ public class DiaryMapperTest {
 			log.info("writer : {}",memberId);
 			log.info("list : {}",entry.getKey());
 			
-			String email = memberDao.selectEmailByMemberId(memberId);
+			String email = memberDAO.selectEmailByMemberId(memberId);
 			log.info("email : {}",email);
 			
 			// 메일 본문
