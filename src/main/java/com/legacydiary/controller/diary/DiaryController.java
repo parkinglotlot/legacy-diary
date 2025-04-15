@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.legacydiary.domain.DiaryDTO;
 import com.legacydiary.domain.DiaryVO;
 import com.legacydiary.domain.MemberDTO;
+import com.legacydiary.domain.SearchDTO;
 import com.legacydiary.service.diary.DiaryService;
 
 import lombok.RequiredArgsConstructor;
@@ -149,6 +150,29 @@ public class DiaryController {
 				return "success";
 				
 				
+	}
+	
+	@PostMapping("/search")
+	public String seachDiary(SearchDTO searchDTO, HttpSession session, Model model) {
+		
+		log.info("검색해보자~ searchDTO : {}",searchDTO);
+		
+		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
+		
+		if(loginMember == null) {
+			return "/member/login";
+		}
+		
+		searchDTO.setWriter(loginMember.getMemberId());
+		log.info("searchDTO : {}", searchDTO);
+		
+		List<DiaryVO> diaryList = diaryService.searchDiary(searchDTO);
+		
+		log.info("검색 결과 리스트 :{}", diaryList);
+		
+		model.addAttribute("diaryList",diaryList);
+		return "/diary/list";
+		
 	}
 	
 	

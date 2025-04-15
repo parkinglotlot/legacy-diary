@@ -57,4 +57,3 @@ select * from member;
 
 update member set email = 'jina_1226@naver.com' where memberId = 'jina';
 update member set email = 'ujin2597.u@gmail.com' where memberId = 'park';
-
